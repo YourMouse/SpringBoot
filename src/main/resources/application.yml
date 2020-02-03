@@ -1,0 +1,10 @@
+# 连接驱动为8而数据库版本为5则需要配置时区UTC：serverTimezone=UTC
+# 如果数据库版本为8，驱动则改为com.mysql.cj.jdbc.Driver
+# 如果出现乱码则需要加上：useUnicode=true&characterEncoding=utf-8
+
+#jdbcTemplate可以直接使用jdbc
+---
+
+
+
+

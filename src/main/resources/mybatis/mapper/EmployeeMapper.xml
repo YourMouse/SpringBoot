@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.mouse.demo01.dao.EmployeeMapper">
+    <!--查询某个员工-->
+    <select id="queryEmployeeById" parameterType="int" resultMap="EmpPart">
+        select * from springboot.employee where id = #{id}
+    </select>
+
+    <!--查询所有员工-->
+    <select id="queryAllEmployees" resultMap="EmpPart">
+        select * from springboot.employee
+    </select>
+
+    <resultMap id="EmpPart" type="Employee">
+        <result property="id" column="id"  />
+        <result property="lastName" column="lastName" />
+        <result property="email" column="email" />
+        <result property="gender" column="gender" />
+        <result property="birth" column="birth" />
+        <result property="did" column="did" />
+        <association property="department" column="did" javaType="Department" select="queryDepartmentById" />
+    </resultMap>
+
+    <select id="queryDepartmentById" parameterType="int" resultType="Department">
+        select * from springboot.department where id = #{id}
+    </select>
+
+
+    <!--删除某一个员工-->
+    <delete id="deleteEmployeeById" parameterType="int">
+        delete from springboot.employee where id = #{id}
+    </delete>
+
+
+    
+    <!--修改某一个员工-->
+    <update id="updateEmployee" parameterType="Employee">
+        update springboot.employee set lastName = #{lastName}, email = #{email}, gender = #{gender}, birth = #{birth}, did = #{did} where id = #{id}
+    </update>
+
+    <!--增加某一个员工-->
+    <insert id="insertEmployee" parameterType="Employee" >
+        insert into springboot.employee value(null,#{lastName},#{email},#{gender},#{birth},#{did})
+    </insert>
+
+</mapper>
